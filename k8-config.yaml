@@ -141,18 +141,19 @@ spec:
               cpu: 10m
               memory: 50Mi
           ports:
-            - containerPort: 80
             - containerPort: 443
           livenessProbe:
             httpGet:
               path: /healthz
-              port: 80
+              port: 443
+              scheme: HTTPS
             failureThreshold: 1
             periodSeconds: 10
           startupProbe:
             httpGet:
               path: /healthz
-              port: 80
+              port: 443
+              scheme: HTTPS
             failureThreshold: 36
             periodSeconds: 5
     metadata:
@@ -182,7 +183,5 @@ spec:
   selector:
     app: custom-metrics-apiserver
   ports:
-    - port: 80
-      name: port80
     - port: 443
       name: port443
